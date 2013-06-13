@@ -6,7 +6,7 @@
     "require": {
         "symfony/http-foundation": ">=2.1,<2.4-dev",
         "symfony/config": ">=2.1,<2.4-dev",
-        "daily/mandrill-dm": "dev-master"
+        "daily/mandrill-dm": "0.*"
     },
     "autoload": {
         "psr-0": { "Hip\\MandrillBundle": "" }

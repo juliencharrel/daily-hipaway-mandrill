@@ -93,7 +93,7 @@ class Message
      *
      * @var bool
      */
-    protected $trackClicks = true;
+    protected $trackClicks = false;
 
     /**
      * whether or not to automatically generate a text part for messages that are not given text

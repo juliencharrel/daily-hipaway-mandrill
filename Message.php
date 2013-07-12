@@ -250,6 +250,8 @@ class Message
      */
     public function addGlobalMergeVar($name, $content)
     {
+        $this->setMerge(true);
+
         $this->globalMergeVars[] = array(
             'name' => $name,
             'content' => $content,
@@ -270,6 +272,8 @@ class Message
      */
     public function addMergeVar($recipient, $name, $content)
     {
+        $this->setMerge(true);
+
         $this->mergeVars[] = array(
             'rcpt' => $recipient,
             'vars' => array(
@@ -278,6 +282,32 @@ class Message
                     'content' => $content
                 )
             )
+        );
+
+        return $this;
+    }
+    
+    /**
+     * Add several per-recipient merge variables,
+     * which override global merge variables with the same name.
+     *
+     * @param string $recipient
+     * @param array  $data
+     *
+     * @return Message
+     */
+    public function addMergeVars($recipient, $data)
+    {
+        $this->setMerge(true);
+
+        $vars = array();
+        foreach ( $data as $name => $content ) {
+            $vars[] = array('name' => $name, 'content' => $content);
+        }
+
+        $this->mergeVars[] = array(
+            'rcpt' => $recipient,
+            'vars' => $vars
         );
 
         return $this;
@@ -506,6 +536,8 @@ class Message
     public function setTrackClicks($trackClicks)
     {
         $this->trackClicks = $trackClicks;
+
+        return $this;
     }
 
     /**
@@ -689,16 +721,10 @@ class Message
     }
 
     /**
-     * Will automatically be set to true if either merge_vars or global_merge_vars are provided.
-     * 
      * @return boolean
      */
     public function getMerge()
     {
-        if (!empty($this->mergeVars) || !empty($this->globalMergeVars)) {
-            return $true;
-        }
-
         return $this->merge;
     }
 

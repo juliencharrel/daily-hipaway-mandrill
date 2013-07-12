@@ -689,10 +689,16 @@ class Message
     }
 
     /**
+     * Will automatically be set to true if either merge_vars or global_merge_vars are provided.
+     * 
      * @return boolean
      */
     public function getMerge()
     {
+        if (!empty($this->mergeVars) || !empty($this->globalMergeVars)) {
+            return $true;
+        }
+
         return $this->merge;
     }
 
